@@ -64,6 +64,113 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-vue学习" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/07/14/vue%E5%AD%A6%E4%B9%A0/" class="article-date">
+  <time datetime="2022-07-14T06:57:48.689Z" itemprop="datePublished">2022-07-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/07/14/vue%E5%AD%A6%E4%B9%A0/">vue学习</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="computed和watch的区别"><a href="#computed和watch的区别" class="headerlink" title="computed和watch的区别"></a>computed和watch的区别</h1><ol>
+<li>computed是计算属性，watch是监控属性</li>
+<li>computed能完成的功能watch都能完成</li>
+<li>watchn能完成的功能，computed不一定能完成，例如：watch可以进行异步操作<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">watch</span>:&#123;</span><br><span class="line">        <span class="title function_">firstName</span>(<span class="params">val</span>)&#123;</span><br><span class="line">            <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                <span class="variable language_">this</span>.<span class="property">fullName</span> = val + <span class="variable language_">this</span>.<span class="property">lastName</span>;</span><br><span class="line">            &#125;, <span class="number">1000</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="两个重要的原则"><a href="#两个重要的原则" class="headerlink" title="两个重要的原则"></a>两个重要的原则</h3></li>
+<li>所被vue管理的函数最好写成普通函数，这样this的指向才是vm 或者 组件实例对象</li>
+<li>所不被vue管理的函数（定时器的回调函数，ajax的回调函数，promise的回调函数），最好写成箭头函数，这样this的指向VM或者组件实列对象</li>
+</ol>
+<h1 id="条件渲染"><a href="#条件渲染" class="headerlink" title="条件渲染"></a>条件渲染</h1><ol>
+<li>v-if<ul>
+<li>写法：<ol>
+<li>v-if=”表达式”</li>
+<li>v-else-if=”表达式”</li>
+<li>v-else=”表达式”</li>
+</ol>
+</li>
+<li>适用于：切换频率较低的场景</li>
+<li>特点:不展示dom元素直接被移除</li>
+<li>注意:v-if可以和v-else-if、v-else结合使用，但要求结构不能被打断</li>
+</ul>
+</li>
+<li>v-show<ul>
+<li>写法：v-show=”表达式”</li>
+<li>使用于：切换斌率较高的场景</li>
+<li>特点：不展示的dom元素未被移除，只是将其使用的样式隐藏掉</li>
+</ul>
+</li>
+<li>备注：使用v-if的时候，元素可能无法获取到，使用v-show一定可以获取到元素</li>
+</ol>
+<h1 id="列表渲染"><a href="#列表渲染" class="headerlink" title="列表渲染"></a>列表渲染</h1><h3 id="v-for指令"><a href="#v-for指令" class="headerlink" title="v-for指令"></a>v-for指令</h3><ol>
+<li>用于展示列表</li>
+<li>语法v-for=”(item,index) in xxx :key=”yyy” “</li>
+<li>可遍历：数组，字符串，对象，指定次数（int类型） </li>
+</ol>
+<h3 id="key的作用与原理"><a href="#key的作用与原理" class="headerlink" title="key的作用与原理"></a>key的作用与原理</h3><ol>
+<li>虚拟dom中key的作用：<br>key是虚拟dom对象的标识，当数据发生变化时，vue会根据【新数据】生成【新的虚拟dom】，随后vue进行【新虚拟dom】与【旧虚拟dom】的差异比较</li>
+<li>比较规则：<ul>
+<li>旧虚拟dom中找到了与新虚拟dom相同的key，若虚拟dom中内容没变，则直接使用之前的真实dom,若虚拟dom中内容发生变化，则生成新的真实的dom，随后替换掉页面中之前的真是dom</li>
+<li>旧虚拟dom中未找到与新虚拟dom相同的key创建新的真实dom,随后渲染到页面</li>
+</ul>
+</li>
+<li>用inde最为key可能会引发的问题：<ul>
+<li>若对数据进行：逆序添加、逆序删除等破坏顺序操作会产生没有必要的真实dom更新===&gt;界面效果没问题，单效率低</li>
+<li>如果结构中包含输入类的dom，会产生错误dom更新===&gt;界面有问题</li>
+</ul>
+</li>
+<li>开发中如何选择key<ul>
+<li>最好使用每条数据的唯一标识作为key，比如id、手机号、身份证、学号等唯一值</li>
+<li>如果不存在对数据的逆序添加、删除等破坏顺序操作，仅用于渲染列表用于展示使用index作为key是没有问题的</li>
+</ul>
+</li>
+</ol>
+<h1 id="vue监视数据"><a href="#vue监视数据" class="headerlink" title="vue监视数据"></a>vue监视数据</h1><ol>
+<li>vue会监视data中所有层次的数据</li>
+<li>如何检测对象中的数据：<br>通过setter实现监视，且要在new vua时就传入要检测的数据<ul>
+<li>.对象中后追加属性，vue属性默认不做响应式处理</li>
+<li>如需给后添加的属性做响应式，请使用如下api：<br>vue.set(target,propertyName/index,value)或者<br>vm.$set(target,propertyName/index,value)</li>
+</ul>
+</li>
+<li>如何检测数组中的数据<br>通过包裹数组更新元素的方法实现，本质就是做两件事<ul>
+<li>调用原生对应的方法对数组进行更新</li>
+<li>重新解析模板，进行更新页面</li>
+</ul>
+</li>
+<li>在vue修改数组中的某个元素一定要用如下方法：<ul>
+<li>使用这些api:push(),pop(),shift(),splice(),sort(),reverse()</li>
+<li>vue.set()或vm.$set()  </li>
+</ul>
+</li>
+</ol>
+<p>&lt;^注意：vue.set()和vm.$set()不能给vm或者vm的跟数据对象添加属性&gt;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/07/14/vue%E5%AD%A6%E4%B9%A0/" data-id="cl5q60oqu00009wu543vl3aln" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-makedown语法简介" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2022/07/12/makedown%E8%AF%AD%E6%B3%95%E7%AE%80%E4%BB%8B/" class="article-date">
@@ -121,16 +228,16 @@
 <li>第一项<ol>
 <li>第一项嵌套的第一个元素</li>
 <li>第一项嵌套的第二个元素</li>
-<li><h1 id="Markdown-区块"><a href="#Markdown-区块" class="headerlink" title="Markdown 区块"></a>Markdown 区块</h1>Markdown 区块引用是在段落开头使用 &gt; 符号 ，然后后面紧跟一个空格符号：<br>另外区块是可以嵌套的，一个 &gt; 符号是最外层，两个 &gt; 符号是第一层嵌套，以此类推：<blockquote>
+</ol>
+</li>
+</ul>
+<h1 id="Markdown-区块"><a href="#Markdown-区块" class="headerlink" title="Markdown 区块"></a>Markdown 区块</h1><p>Markdown 区块引用是在段落开头使用 &gt; 符号 ，然后后面紧跟一个空格符号：<br>另外区块是可以嵌套的，一个 &gt; 符号是最外层，两个 &gt; 符号是第一层嵌套，以此类推：</p>
+<blockquote>
 <p>区块引用</p>
 <blockquote>
 <p>区块嵌套引用  </p>
 </blockquote>
 </blockquote>
-</li>
-</ol>
-</li>
-</ul>
 <p>如果要在列表项目内放进区块，那么就需要在 &gt; 前添加四个空格的缩进。</p>
 <ul>
 <li>无序列表<blockquote>
@@ -279,6 +386,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2022/07/14/vue%E5%AD%A6%E4%B9%A0/">vue学习</a>
+          </li>
         
           <li>
             <a href="/2022/07/12/makedown%E8%AF%AD%E6%B3%95%E7%AE%80%E4%BB%8B/">makedown语法简介</a>
