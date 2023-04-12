@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1.5.1 在Win10上准备centos712345678910111213141516和大家说明一下，我们的目的仅仅是要安装一个centos7，然后在centos7上安装docker如果搞不定vagrant+virtualbox的方式，也可以直接使用VM搭建一个centos7或者你可以直接使用一台云服务器，上面安装了centos7毕竟我们的目的只是为了得到一个centos7的机器，所以不必花太">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2022/08/08/docker/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1.5.1 在Win10上准备centos712345678910111213141516和大家说明一下，我们的目的仅仅是要安装一个centos7，然后在centos7上安装docker如果搞不定vagrant+virtualbox的方式，也可以直接使用VM搭建一个centos7或者你可以直接使用一台云服务器，上面安装了centos7毕竟我们的目的只是为了得到一个centos7的机器，所以不必花太">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-08-08T07:43:45.578Z">
+<meta property="article:modified_time" content="2022-08-09T06:10:47.091Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-docker" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/08/08/docker/" class="article-date">
+  <time datetime="2022-08-08T07:43:45.578Z" itemprop="datePublished">2022-08-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-5-1-在Win10上准备centos7"><a href="#1-5-1-在Win10上准备centos7" class="headerlink" title="1.5.1 在Win10上准备centos7"></a>1.5.1 在Win10上准备centos7</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">和大家说明一下，我们的目的仅仅是要安装一个centos7，然后在centos7上安装docker</span><br><span class="line"></span><br><span class="line">如果搞不定vagrant+virtualbox的方式，也可以直接使用VM搭建一个centos7</span><br><span class="line"></span><br><span class="line">或者你可以直接使用一台云服务器，上面安装了centos7</span><br><span class="line"></span><br><span class="line">毕竟我们的目的只是为了得到一个centos7的机器，所以不必花太多精力在这个问题上折腾</span><br><span class="line"></span><br><span class="line">我上课用的环境是</span><br><span class="line">【</span><br><span class="line">    win10 64位</span><br><span class="line">    VirtualBox-6.0.12-133076-Win   [已上传到网盘的“上课课件/virtualbox”目录]</span><br><span class="line">    vagrant_2.2.6_x86_64  [已上传到网盘的“上课课件/vagrant”目录]</span><br><span class="line">    centos7   [已上传到网盘的“上课课件”目录]</span><br><span class="line">    XShell6</span><br><span class="line">】</span><br></pre></td></tr></table></figure>
+
+<p><strong>采坑指南</strong>：如果安装过程碰到一些问题，我特地给大家准备了一份手记，放在gper上</p>
+<p><a target="_blank" rel="noopener" href="https://gper.club/articles/7e7e7f7ff7g58gc1g6e">https://gper.club/articles/7e7e7f7ff7g58gc1g6e</a></p>
+<blockquote>
+<p><code>采用vagrant+virtual box</code></p>
+</blockquote>
+<h4 id="1-5-1-1-下载安装vagrant"><a href="#1-5-1-1-下载安装vagrant" class="headerlink" title="1.5.1.1 下载安装vagrant"></a>1.5.1.1 下载安装vagrant</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">01 访问Vagrant官网</span><br><span class="line">https://www.vagrantup.com/</span><br><span class="line"></span><br><span class="line">02 点击Download</span><br><span class="line">Windows，MacOS，Linux等</span><br><span class="line"></span><br><span class="line">03 选择对应的版本</span><br><span class="line"></span><br><span class="line">04 傻瓜式安装</span><br><span class="line"></span><br><span class="line">05 命令行输入vagrant，测试是否安装成功</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-5-1-2-下载安装virtual-box"><a href="#1-5-1-2-下载安装virtual-box" class="headerlink" title="1.5.1.2 下载安装virtual box"></a>1.5.1.2 下载安装virtual box</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">01 访问VirtualBox官网</span><br><span class="line">	https://www.virtualbox.org/</span><br><span class="line"></span><br><span class="line">02 选择左侧的“Downloads”</span><br><span class="line"></span><br><span class="line">03 选择对应的操作系统版本</span><br><span class="line"></span><br><span class="line">04 傻瓜式安装</span><br><span class="line"></span><br><span class="line">05 [win10中若出现]安装virtualbox快完成时立即回滚，并提示安装出现严重错误</span><br><span class="line">    (1)打开服务</span><br><span class="line">    (2)找到Device Install Service和Device Setup Manager，然后启动</span><br><span class="line">    (3)再次尝试安装</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-5-1-3-安装centos7"><a href="#1-5-1-3-安装centos7" class="headerlink" title="1.5.1.3 安装centos7"></a>1.5.1.3 安装centos7</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">01 创建centos7文件夹，并进入其中[目录全路径不要有中文字符]</span><br><span class="line"></span><br><span class="line">02 在此目录下打开cmd，运行vagrant init centos/7</span><br><span class="line">   此时会在当前目录下生成Vagrantfile，同时指定使用的镜像为centos/7，关键是这个镜像在哪里，我已经提前准备好了，名称是virtualbox.box文件</span><br><span class="line">   </span><br><span class="line">03 将virtualbox.box文件添加到vagrant管理的镜像中</span><br><span class="line">	(1)下载网盘中的virtualbox.box文件</span><br><span class="line">    (2)保存到磁盘的某个目录，比如D:\virtualbox.box</span><br><span class="line">    (3)添加镜像并起名叫centos/7：vagrant box add centos/7 D:\virtualbox.box</span><br><span class="line">    (4)vagrant box list  查看本地的box[这时候可以看到centos/7]</span><br><span class="line">    </span><br><span class="line">04 centos/7镜像有了，根据Vagrantfile文件启动创建虚拟机</span><br><span class="line">	来到centos7文件夹，在此目录打开cmd窗口，执行vagrant up[打开virtual box观察，可以发现centos7创建成功]</span><br><span class="line">	</span><br><span class="line">05 以后大家操作虚拟机，还是要在centos文件夹打开cmd窗口操作</span><br><span class="line">	vagrant halt   优雅关闭</span><br><span class="line">	vagrant up     正常启动</span><br><span class="line">	</span><br><span class="line">06 vagrant常用命令</span><br><span class="line">	(1)vagrant ssh    </span><br><span class="line">    	进入刚才创建的centos7中</span><br><span class="line">    (2)vagrant status</span><br><span class="line">    	查看centos7的状态</span><br><span class="line">    (3)vagrant halt</span><br><span class="line">    	停止/关闭centos7</span><br><span class="line">    (4)vagrant destroy</span><br><span class="line">    	删除centos7</span><br><span class="line">    (5)vagrant status</span><br><span class="line">    	查看当前vagrant创建的虚拟机</span><br><span class="line">    (6)Vagrantfile中也可以写脚本命令，使得centos7更加丰富</span><br><span class="line">    	但是要注意，修改了Vagrantfile，要想使正常运行的centos7生效，必须使用vagrant reload</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>至此，使用vagrant+virtualbox搭建centos7完成，后面可以修改Vagrantfile对虚拟机进行相应配置</code></p>
+</blockquote>
+<h4 id="1-5-1-4-若想通过Xshell连接centos7"><a href="#1-5-1-4-若想通过Xshell连接centos7" class="headerlink" title="1.5.1.4 若想通过Xshell连接centos7"></a>1.5.1.4 若想通过Xshell连接centos7</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">01 使用centos7的默认账号连接</span><br><span class="line">	在centos文件夹下执行vagrant ssh-config</span><br><span class="line">	关注:Hostname  Port  IdentityFile</span><br><span class="line">	IP:127.0.0.1</span><br><span class="line">	port:2222</span><br><span class="line">	用户名:vagrant</span><br><span class="line">	密码:vagrant</span><br><span class="line">	文件:Identityfile指向的文件private-key</span><br><span class="line">	</span><br><span class="line">02 使用root账户登录</span><br><span class="line">	vagrant ssh   进入到虚拟机中</span><br><span class="line">	sudo -i</span><br><span class="line">	vi /etc/ssh/sshd_config</span><br><span class="line">	修改PasswordAuthentication yes</span><br><span class="line">	passwd修改密码，比如abc123</span><br><span class="line">	systemctl restart sshd</span><br><span class="line">	使用账号root，密码abc123进行登录</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-5-1-5-Vagrantfile通用写法"><a href="#1-5-1-5-Vagrantfile通用写法" class="headerlink" title="1.5.1.5 Vagrantfile通用写法"></a>1.5.1.5 Vagrantfile通用写法</h4><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- mode: ruby -*-</span></span><br><span class="line"><span class="comment"># vi: set ft=ruby :</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># All Vagrant configuration is done below. The &quot;2&quot; in Vagrant.configure</span></span><br><span class="line"><span class="comment"># configures the configuration version (we support older styles for</span></span><br><span class="line"><span class="comment"># backwards compatibility). Please don&#x27;t change it unless you know what</span></span><br><span class="line"><span class="comment"># you&#x27;re doing.</span></span><br><span class="line">Vagrant.configure(<span class="string">&quot;2&quot;</span>) <span class="keyword">do</span> |<span class="params">config</span>|</span><br><span class="line">  <span class="comment"># The most common configuration options are documented and commented below.</span></span><br><span class="line">  <span class="comment"># For a complete reference, please see the online documentation at</span></span><br><span class="line">  <span class="comment"># https://docs.vagrantup.com.</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Every Vagrant development environment requires a box. You can search for</span></span><br><span class="line">  <span class="comment"># boxes at https://vagrantcloud.com/search.</span></span><br><span class="line">  config.vm.box = <span class="string">&quot;centos/7&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Disable automatic box update checking. If you disable this, then</span></span><br><span class="line">  <span class="comment"># boxes will only be checked for updates when the user runs</span></span><br><span class="line">  <span class="comment"># `vagrant box outdated`. This is not recommended.</span></span><br><span class="line">  <span class="comment"># config.vm.box_check_update = false</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Create a forwarded port mapping which allows access to a specific port</span></span><br><span class="line">  <span class="comment"># within the machine from a port on the host machine. In the example below,</span></span><br><span class="line">  <span class="comment"># accessing &quot;localhost:8080&quot; will access port 80 on the guest machine.</span></span><br><span class="line">  <span class="comment"># <span class="doctag">NOTE:</span> This will enable public access to the opened port</span></span><br><span class="line">  <span class="comment"># config.vm.network &quot;forwarded_port&quot;, guest: 80, host: 8080</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Create a forwarded port mapping which allows access to a specific port</span></span><br><span class="line">  <span class="comment"># within the machine from a port on the host machine and only allow access</span></span><br><span class="line">  <span class="comment"># via 127.0.0.1 to disable public access</span></span><br><span class="line">  <span class="comment"># config.vm.network &quot;forwarded_port&quot;, guest: 80, host: 8080, host_ip: &quot;127.0.0.1&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Create a private network, which allows host-only access to the machine</span></span><br><span class="line">  <span class="comment"># using a specific IP.</span></span><br><span class="line">  <span class="comment"># config.vm.network &quot;private_network&quot;, ip: &quot;192.168.33.10&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Create a public network, which generally matched to bridged network.</span></span><br><span class="line">  <span class="comment"># Bridged networks make the machine appear as another physical device on</span></span><br><span class="line">  <span class="comment"># your network.</span></span><br><span class="line">  config.vm.network <span class="string">&quot;public_network&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Share an additional folder to the guest VM. The first argument is</span></span><br><span class="line">  <span class="comment"># the path on the host to the actual folder. The second argument is</span></span><br><span class="line">  <span class="comment"># the path on the guest to mount the folder. And the optional third</span></span><br><span class="line">  <span class="comment"># argument is a set of non-required options.</span></span><br><span class="line">  <span class="comment"># config.vm.synced_folder &quot;../data&quot;, &quot;/vagrant_data&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Provider-specific configuration so you can fine-tune various</span></span><br><span class="line">  <span class="comment"># backing providers for Vagrant. These expose provider-specific options.</span></span><br><span class="line">  <span class="comment"># Example for VirtualBox:</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="comment"># config.vm.provider &quot;virtualbox&quot; do |vb|</span></span><br><span class="line">  <span class="comment">#   # Display the VirtualBox GUI when booting the machine</span></span><br><span class="line">  <span class="comment">#   vb.gui = true</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="comment">#   # Customize the amount of memory on the VM:</span></span><br><span class="line">  <span class="comment">#   vb.memory = &quot;1024&quot;</span></span><br><span class="line">  <span class="comment"># end</span></span><br><span class="line">    config.vm.provider <span class="string">&quot;virtualbox&quot;</span> <span class="keyword">do</span> |<span class="params">vb</span>|</span><br><span class="line">        vb.memory = <span class="string">&quot;4000&quot;</span></span><br><span class="line">        vb.name= <span class="string">&quot;jack-centos7&quot;</span></span><br><span class="line">        vb.cpus= <span class="number">2</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="comment"># View the documentation for the provider you are using for more</span></span><br><span class="line">  <span class="comment"># information on available options.</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Enable provisioning with a shell script. Additional provisioners such as</span></span><br><span class="line">  <span class="comment"># Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the</span></span><br><span class="line">  <span class="comment"># documentation for more information about their specific syntax and use.</span></span><br><span class="line">  <span class="comment"># config.vm.provision &quot;shell&quot;, inline: &lt;&lt;-SHELL</span></span><br><span class="line">  <span class="comment">#   apt-get update</span></span><br><span class="line">  <span class="comment">#   apt-get install -y apache2</span></span><br><span class="line">  <span class="comment"># SHELL</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="1-5-1-6-box的打包分发"><a href="#1-5-1-6-box的打包分发" class="headerlink" title="1.5.1.6 box的打包分发"></a>1.5.1.6 box的打包分发</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">01 退出虚拟机</span><br><span class="line">	vagrant halt</span><br><span class="line"></span><br><span class="line">02 打包</span><br><span class="line">	vagrant package --output first-docker-centos7.box</span><br><span class="line">	</span><br><span class="line">03 得到first-docker-centos7.box</span><br><span class="line">	</span><br><span class="line">04 将first-docker-centos7.box添加到其他的vagrant环境中</span><br><span class="line">	vagrant box add first-docker-centos7 first-docker-centos7.box</span><br><span class="line">	</span><br><span class="line">05 得到Vagrantfile</span><br><span class="line">	vagrant init first-docker-centos7</span><br><span class="line"></span><br><span class="line">06 根据Vagrantfile启动虚拟机</span><br><span class="line">	vagrant up [此时可以得到和之前一模一样的环境，但是网络要重新配置]</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-5-2-安装docker"><a href="#1-5-2-安装docker" class="headerlink" title="1.5.2 安装docker"></a>1.5.2 安装docker</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://docs.docker.com/install/linux/docker-ce/centos/">https://docs.docker.com/install/linux/docker-ce/centos/</a></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">01 进入centos7</span><br><span class="line">	vagrant ssh</span><br><span class="line">	</span><br><span class="line">02 卸载之前的docker</span><br><span class="line">	sudo yum remove docker \</span><br><span class="line">                  docker-client \</span><br><span class="line">                  docker-client-latest \</span><br><span class="line">                  docker-common \</span><br><span class="line">                  docker-latest \</span><br><span class="line">                  docker-latest-logrotate \</span><br><span class="line">                  docker-logrotate \</span><br><span class="line">                  docker-engine</span><br><span class="line">                  </span><br><span class="line">03 安装必要的依赖</span><br><span class="line">	sudo yum install -y yum-utils \</span><br><span class="line">    device-mapper-persistent-data \</span><br><span class="line">    lvm2</span><br><span class="line">    </span><br><span class="line">04 设置docker仓库  [设置阿里云镜像仓库可以先自行百度，后面课程也会有自己的docker hub讲解]	</span><br><span class="line">	sudo yum-config-manager \</span><br><span class="line">      --add-repo \</span><br><span class="line">      https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line">      </span><br><span class="line">    [访问这个地址，使用自己的阿里云账号登录，查看菜单栏左下角，发现有一个镜像加速器:https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors]</span><br><span class="line"></span><br><span class="line">05 安装docker</span><br><span class="line">	sudo yum install -y docker-ce docker-ce-cli containerd.io</span><br><span class="line">	</span><br><span class="line">06 启动docker</span><br><span class="line">	sudo systemctl start docker</span><br><span class="line">	</span><br><span class="line">07 测试docker安装是否成功</span><br><span class="line">	sudo docker run hello-world</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-5-3-docker基本体验"><a href="#1-5-3-docker基本体验" class="headerlink" title="1.5.3 docker基本体验"></a>1.5.3 docker基本体验</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">01 创建tomcat容器</span><br><span class="line">	docker pull tomcat</span><br><span class="line">	docker run -d --name my-tomcat -p 9090:8080 tomcat</span><br><span class="line"></span><br><span class="line">02 创建mysql容器</span><br><span class="line">	docker run -d --name my-mysql -p 3301:3306 -e MYSQL_ROOT_PASSWORD=jack123 --privileged mysql</span><br><span class="line">	</span><br><span class="line">03 进入到容器里面</span><br><span class="line">	docker exec -it containerid /bin/bash</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-5-4-可能有的疑惑"><a href="#1-5-4-可能有的疑惑" class="headerlink" title="1.5.4 可能有的疑惑"></a>1.5.4 可能有的疑惑</h3><p>(1)docker pull在哪拉取的镜像？</p>
+<p>​    默认是在hub.docker.com</p>
+<p>(2)docker pull tomcat拉取的版本是？</p>
+<p>​    默认是最新的版本，可以在后面指定版本”:”</p>
+<p>(3)简单先说一下命令咯</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker pull        拉取镜像到本地</span><br><span class="line">docker run         根据某个镜像创建容器</span><br><span class="line">-d                 让容器在后台运行，其实就是一个进程</span><br><span class="line">--name             给容器指定一个名字</span><br><span class="line">-p                 将容器的端口映射到宿主机的端口</span><br><span class="line">docker exec -it    进入到某个容器中并交互式运行</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/08/08/docker/" data-id="clgdf8p3n0002ccu5dfhld1d6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/04/12/mysql%E7%B4%A2%E5%BC%95/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/07/27/spring%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/04/12/JMM/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/12/mysql%E7%B4%A2%E5%BC%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/08/08/docker/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/27/spring%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/21/aop%E5%88%87%E9%9D%A2%E7%9F%A5%E8%AF%86%E7%82%B9/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

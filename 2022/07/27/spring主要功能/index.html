@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Spring主要功能Spring Ioc工程怎么把对象创建出来，交给用户（工厂模式、原型、单例） Spring Di怎么给对象自动赋值，循环依赖注入（组合复用原则） Spring Mvc用户输入URL怎么和java代码关联，MVC九大组件（委派、策略、解释器） Spring aop面向切面设计、解耦、通知回调（责任链、动态代理） Spring Jdbc ORM基于spring jdbc手写orm框">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2022/07/27/spring%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Spring主要功能Spring Ioc工程怎么把对象创建出来，交给用户（工厂模式、原型、单例） Spring Di怎么给对象自动赋值，循环依赖注入（组合复用原则） Spring Mvc用户输入URL怎么和java代码关联，MVC九大组件（委派、策略、解释器） Spring aop面向切面设计、解耦、通知回调（责任链、动态代理） Spring Jdbc ORM基于spring jdbc手写orm框">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-07-27T09:08:53.750Z">
+<meta property="article:modified_time" content="2022-08-03T06:57:19.769Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-spring主要功能" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/07/27/spring%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD/" class="article-date">
+  <time datetime="2022-07-27T09:08:53.750Z" itemprop="datePublished">2022-07-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Spring主要功能"><a href="#Spring主要功能" class="headerlink" title="Spring主要功能"></a>Spring主要功能</h1><h2 id="Spring-Ioc"><a href="#Spring-Ioc" class="headerlink" title="Spring Ioc"></a>Spring Ioc</h2><p>工程怎么把对象创建出来，交给用户（工厂模式、原型、单例）</p>
+<h2 id="Spring-Di"><a href="#Spring-Di" class="headerlink" title="Spring Di"></a>Spring Di</h2><p>怎么给对象自动赋值，循环依赖注入（组合复用原则）</p>
+<h2 id="Spring-Mvc"><a href="#Spring-Mvc" class="headerlink" title="Spring Mvc"></a>Spring Mvc</h2><p>用户输入URL怎么和java代码关联，MVC九大组件（委派、策略、解释器）</p>
+<h2 id="Spring-aop"><a href="#Spring-aop" class="headerlink" title="Spring aop"></a>Spring aop</h2><p>面向切面设计、解耦、通知回调（责任链、动态代理）</p>
+<h2 id="Spring-Jdbc-ORM"><a href="#Spring-Jdbc-ORM" class="headerlink" title="Spring Jdbc ORM"></a>Spring Jdbc ORM</h2><p>基于spring jdbc手写orm框架（模板方法模式、建造者模式）</p>
+<h3 id="BeanFactory工厂"><a href="#BeanFactory工厂" class="headerlink" title="BeanFactory工厂"></a>BeanFactory工厂</h3><p>ApplicationContext：持有BeanFactory引用，静态代理，门面模式<br>BeanDefinition元信息，配置：解析配置文件（xml,yml.annotation,properties）<br>Bean实列，反射实例化Object:原生的Bean,代理的Bean<br>BeanWrapper包装器模式：持有的Bean引用，缓存到IOC容器</p>
+<h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><h3 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h3><p>工厂模式分为：简单工厂（spring中Logger，获取日历方法），抽象工厂（数据库连接池）</p>
+<h3 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h3><h4 id="饿汉式"><a href="#饿汉式" class="headerlink" title="饿汉式"></a>饿汉式</h4><p>被调用前加载实例<br>优点：性能高，效率高，没有任何的锁<br>缺点：某些情况下，可能会造成内存浪费</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">hungrySingleton</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">hungrySingleton</span> <span class="variable">lazy</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">hungrySingleton</span>();</span><br><span class="line">    <span class="keyword">private</span>  <span class="title function_">hungrySingleton</span><span class="params">()</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">public</span>  <span class="keyword">static</span> hungrySingleton <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> lazy;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="懒汉式"><a href="#懒汉式" class="headerlink" title="懒汉式"></a>懒汉式</h4><p>被外部类调用时才会创建实例<br>优点：节省内存<br>缺点：线程不安全<br>同步线程：可以在方法上添加synchroized关键字保证线程安全，但是会影响性能</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LazySingleton</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> LazySingleton lazy;</span><br><span class="line">    <span class="keyword">private</span>  <span class="title function_">LazySingleton</span><span class="params">()</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> synchroized <span class="keyword">static</span> LazySingleton <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(lazy == <span class="literal">null</span>)&#123;</span><br><span class="line">            lazy = <span class="keyword">new</span> <span class="title class_">LazySingleton</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> lazy;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>双重检查：可以在方法中添加synchroized关键字，保证线程安全并且提升了性能，但是可读性难度大</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LazyDoubleCheckSingleton</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> LazyDoubleCheckSingleton lazy;</span><br><span class="line">    <span class="keyword">private</span>  <span class="title function_">LazyDoubleCheckSingleton</span><span class="params">()</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> LazyDoubleCheckSingleton <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//检查是否要阻塞</span></span><br><span class="line">        <span class="keyword">if</span>(lazy == <span class="literal">null</span>)&#123;</span><br><span class="line">            synchroized(LazyDoubleCheckSingleton.class)&#123;</span><br><span class="line">                <span class="comment">//检查是否要重新创建实例</span></span><br><span class="line">                <span class="keyword">if</span>(lazy == <span class="literal">null</span>)&#123;</span><br><span class="line">                    lazy = <span class="keyword">new</span> <span class="title class_">LazyDoubleCheckSingleton</span>();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> lazy;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>内部加载类写法优雅，利用java本身语法特点，性能高，避免内存浪费，但是能够被反射破坏</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LazyStaticInnerClassSingleton</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> LazyStaticInnerClassSingleton lazy;</span><br><span class="line">    <span class="keyword">private</span>  <span class="title function_">LazyStaticInnerClassSingleton</span><span class="params">()</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">public</span>  <span class="keyword">static</span> LazyStaticInnerClassSingleton <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> LazyHolder.INSTANCE;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">LazyHolder</span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">LazyStaticInnerClassSingleton</span> <span class="variable">INSTANCE</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">LazyStaticInnerClassSingleton</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/07/27/spring%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD/" data-id="clgdf8p3q0004ccu5b36h5yd3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/08/08/docker/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/07/21/aop%E5%88%87%E9%9D%A2%E7%9F%A5%E8%AF%86%E7%82%B9/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/04/12/JMM/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/12/mysql%E7%B4%A2%E5%BC%95/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/08/08/docker/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/27/spring%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/21/aop%E5%88%87%E9%9D%A2%E7%9F%A5%E8%AF%86%E7%82%B9/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

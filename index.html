@@ -64,6 +64,276 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-JMM" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2023/04/12/JMM/" class="article-date">
+  <time datetime="2023-04-12T06:19:07.611Z" itemprop="datePublished">2023-04-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="title-JMM"><a href="#title-JMM" class="headerlink" title="title:JMM"></a>title:JMM</h2><h1 id="JMM数据原子操作"><a href="#JMM数据原子操作" class="headerlink" title="JMM数据原子操作"></a>JMM数据原子操作</h1><ul>
+<li>read(读取):从主内存读取数据</li>
+<li>load(载入):从主内存读取到数据写入到工作内存</li>
+<li>use(使用):从工作内存读取数据来计算</li>
+<li>assign(赋值):将计算好的值重新赋值到工作内从中</li>
+<li>store(存储):将工作内存数据写入主内存</li>
+<li>write(写入):将store过去的变量值赋值给主内存中的变量</li>
+<li>lock(锁定):将主内存数据加锁，标识为线程独占状态</li>
+<li>unlock(解锁):将主内存数据解锁，解锁后其他线程可以锁定该变量</li>
+</ul>
+<h1 id="JMM缓存不一致问题"><a href="#JMM缓存不一致问题" class="headerlink" title="JMM缓存不一致问题"></a>JMM缓存不一致问题</h1><ul>
+<li>缓存一致性协议(MESI):多个cpu从主内存读取同一个数据到高速缓存，当其中某个cpu修改了缓存里的数据，该数据<strong>马上同步回主内存</strong>，其他cpu通过<strong>总线嗅探机制</strong>可以感知到数据的变化从而将自己缓存里的数据失效</li>
+<li>缓存加锁：缓存锁的核心机制是基于缓存一致性协议来实现的，一个处理器的缓存回写到内存会导致其他处理器的缓存无效，IA-32和intel 64处理器使用MESI实现缓存一致性协议</li>
+</ul>
+<h1 id="Volatile缓存可见性实现原理"><a href="#Volatile缓存可见性实现原理" class="headerlink" title="Volatile缓存可见性实现原理"></a>Volatile缓存可见性实现原理</h1><p>底层实现主要通过汇编lock前缀指令，他会锁定这块内存区域的缓存(缓存行锁定)并写回到主内存<br>IA-32和intel 64架构软件开发者手册对lock指令的解释：</p>
+<ol>
+<li>会将当前处理器缓存行的数据<strong>立即</strong>写回到系统内存</li>
+<li>这个写回内存的操作会引起其他cpu里缓存了该内存地址的数据无效(MESI协议)</li>
+<li>提供内存屏障功能，使lock前后指令不能重排序</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/04/12/JMM/" data-id="clgdf8p370000ccu5cadh46yv" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mysql索引" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2023/04/12/mysql%E7%B4%A2%E5%BC%95/" class="article-date">
+  <time datetime="2023-04-12T01:46:29.400Z" itemprop="datePublished">2023-04-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="title-MySql索引"><a href="#title-MySql索引" class="headerlink" title="title:MySql索引"></a>title:MySql索引</h2><h1 id="什么是索引"><a href="#什么是索引" class="headerlink" title="什么是索引"></a>什么是索引</h1><p>索引是帮助mysql高效获取数据的排好序的数据结构，mysql使用的B+Tree(B-Tree变种)</p>
+<h1 id="索引数据结构"><a href="#索引数据结构" class="headerlink" title="索引数据结构"></a>索引数据结构</h1><ul>
+<li>二叉树</li>
+<li>红黑树<br>红黑树本质也是二叉树(二叉平衡树),Mysql不使用红黑树因为层级(深度)比较高，每次查询都属于io操作，会降低性能</li>
+<li>B-Tree<ol>
+<li>在红黑树的基础上进行了优化</li>
+<li>叶节点具有相同的深度，叶节点的指针为空</li>
+<li>所有索引元素不重复</li>
+<li>节点中的数据索引从左到右递增排列</li>
+</ol>
+</li>
+<li>B+Tree<ol>
+<li>非叶子节点不存储data,只存储索引(冗余),可以存放更多的索引</li>
+<li>叶子节点包含所有的索引字段</li>
+<li>叶子节点用指针连接，提高区间访问的性能</li>
+</ol>
+</li>
+<li>hash表<ol>
+<li>对索引的key进行一次hash计算就可以定位出数据的存储位置</li>
+<li>很多时候hash索引比b+树索引更高</li>
+<li>仅能满足”=””,”IN”,不支持范围查询</li>
+<li>hash冲突问题</li>
+</ol>
+</li>
+</ul>
+<h1 id="innoDB和mylsam区别"><a href="#innoDB和mylsam区别" class="headerlink" title="innoDB和mylsam区别"></a>innoDB和mylsam区别</h1><p>innoDB叶子节点存储的索引行的具体信息,是聚集索引<br>mylsam叶子节点存储的索引行的内存信息,是非聚集索引<br>索引和数据放在一起的数据聚集索引，索引和数据分开放的数据非聚集索引</p>
+<h1 id="InnoDB索引实现-聚集"><a href="#InnoDB索引实现-聚集" class="headerlink" title="InnoDB索引实现(聚集)"></a>InnoDB索引实现(聚集)</h1><ol>
+<li>表数据本身就是B+Tree组织的一个索引结构文件</li>
+<li>聚集索引-叶子节点包含完整的数据记录</li>
+<li>为什么建议innoDB表必须建主键，并且推荐使用整型的<strong>自增</strong>主键？<ul>
+<li>如果未设置主键，并且没有整型的自增列，mysql会使用默认的row_id列作为主键，<strong>建议建立主键</strong></li>
+<li>使用整形自增主键的好处：<ol>
+<li>主键会进行比较，整型比较比字符串性能高</li>
+<li>整形存储大小比字符串小，节省空间</li>
+<li>自增会提高插入的效率，非自增会导致节点分裂影响性能</li>
+</ol>
+</li>
+<li>分库分表怎么确保整型自增主键：使用雪花算法</li>
+</ul>
+</li>
+<li>为什么非主键索引结构叶子节点存储的是主键值?(一致性和节省空间内存)</li>
+<li>普通索引查询先找到索引叶子节点(叶子节点存储的主键索引)，再根据主键索引查找</li>
+</ol>
+<h1 id="联合索引原理"><a href="#联合索引原理" class="headerlink" title="联合索引原理"></a>联合索引原理</h1><p>联合索引会按照字段从左到右进行排序，索引对应主键索引的信息</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/04/12/mysql%E7%B4%A2%E5%BC%95/" data-id="clgdf8p3p0003ccu58s494van" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-docker" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/08/08/docker/" class="article-date">
+  <time datetime="2022-08-08T07:43:45.578Z" itemprop="datePublished">2022-08-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-5-1-在Win10上准备centos7"><a href="#1-5-1-在Win10上准备centos7" class="headerlink" title="1.5.1 在Win10上准备centos7"></a>1.5.1 在Win10上准备centos7</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">和大家说明一下，我们的目的仅仅是要安装一个centos7，然后在centos7上安装docker</span><br><span class="line"></span><br><span class="line">如果搞不定vagrant+virtualbox的方式，也可以直接使用VM搭建一个centos7</span><br><span class="line"></span><br><span class="line">或者你可以直接使用一台云服务器，上面安装了centos7</span><br><span class="line"></span><br><span class="line">毕竟我们的目的只是为了得到一个centos7的机器，所以不必花太多精力在这个问题上折腾</span><br><span class="line"></span><br><span class="line">我上课用的环境是</span><br><span class="line">【</span><br><span class="line">    win10 64位</span><br><span class="line">    VirtualBox-6.0.12-133076-Win   [已上传到网盘的“上课课件/virtualbox”目录]</span><br><span class="line">    vagrant_2.2.6_x86_64  [已上传到网盘的“上课课件/vagrant”目录]</span><br><span class="line">    centos7   [已上传到网盘的“上课课件”目录]</span><br><span class="line">    XShell6</span><br><span class="line">】</span><br></pre></td></tr></table></figure>
+
+<p><strong>采坑指南</strong>：如果安装过程碰到一些问题，我特地给大家准备了一份手记，放在gper上</p>
+<p><a target="_blank" rel="noopener" href="https://gper.club/articles/7e7e7f7ff7g58gc1g6e">https://gper.club/articles/7e7e7f7ff7g58gc1g6e</a></p>
+<blockquote>
+<p><code>采用vagrant+virtual box</code></p>
+</blockquote>
+<h4 id="1-5-1-1-下载安装vagrant"><a href="#1-5-1-1-下载安装vagrant" class="headerlink" title="1.5.1.1 下载安装vagrant"></a>1.5.1.1 下载安装vagrant</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">01 访问Vagrant官网</span><br><span class="line">https://www.vagrantup.com/</span><br><span class="line"></span><br><span class="line">02 点击Download</span><br><span class="line">Windows，MacOS，Linux等</span><br><span class="line"></span><br><span class="line">03 选择对应的版本</span><br><span class="line"></span><br><span class="line">04 傻瓜式安装</span><br><span class="line"></span><br><span class="line">05 命令行输入vagrant，测试是否安装成功</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-5-1-2-下载安装virtual-box"><a href="#1-5-1-2-下载安装virtual-box" class="headerlink" title="1.5.1.2 下载安装virtual box"></a>1.5.1.2 下载安装virtual box</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">01 访问VirtualBox官网</span><br><span class="line">	https://www.virtualbox.org/</span><br><span class="line"></span><br><span class="line">02 选择左侧的“Downloads”</span><br><span class="line"></span><br><span class="line">03 选择对应的操作系统版本</span><br><span class="line"></span><br><span class="line">04 傻瓜式安装</span><br><span class="line"></span><br><span class="line">05 [win10中若出现]安装virtualbox快完成时立即回滚，并提示安装出现严重错误</span><br><span class="line">    (1)打开服务</span><br><span class="line">    (2)找到Device Install Service和Device Setup Manager，然后启动</span><br><span class="line">    (3)再次尝试安装</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-5-1-3-安装centos7"><a href="#1-5-1-3-安装centos7" class="headerlink" title="1.5.1.3 安装centos7"></a>1.5.1.3 安装centos7</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">01 创建centos7文件夹，并进入其中[目录全路径不要有中文字符]</span><br><span class="line"></span><br><span class="line">02 在此目录下打开cmd，运行vagrant init centos/7</span><br><span class="line">   此时会在当前目录下生成Vagrantfile，同时指定使用的镜像为centos/7，关键是这个镜像在哪里，我已经提前准备好了，名称是virtualbox.box文件</span><br><span class="line">   </span><br><span class="line">03 将virtualbox.box文件添加到vagrant管理的镜像中</span><br><span class="line">	(1)下载网盘中的virtualbox.box文件</span><br><span class="line">    (2)保存到磁盘的某个目录，比如D:\virtualbox.box</span><br><span class="line">    (3)添加镜像并起名叫centos/7：vagrant box add centos/7 D:\virtualbox.box</span><br><span class="line">    (4)vagrant box list  查看本地的box[这时候可以看到centos/7]</span><br><span class="line">    </span><br><span class="line">04 centos/7镜像有了，根据Vagrantfile文件启动创建虚拟机</span><br><span class="line">	来到centos7文件夹，在此目录打开cmd窗口，执行vagrant up[打开virtual box观察，可以发现centos7创建成功]</span><br><span class="line">	</span><br><span class="line">05 以后大家操作虚拟机，还是要在centos文件夹打开cmd窗口操作</span><br><span class="line">	vagrant halt   优雅关闭</span><br><span class="line">	vagrant up     正常启动</span><br><span class="line">	</span><br><span class="line">06 vagrant常用命令</span><br><span class="line">	(1)vagrant ssh    </span><br><span class="line">    	进入刚才创建的centos7中</span><br><span class="line">    (2)vagrant status</span><br><span class="line">    	查看centos7的状态</span><br><span class="line">    (3)vagrant halt</span><br><span class="line">    	停止/关闭centos7</span><br><span class="line">    (4)vagrant destroy</span><br><span class="line">    	删除centos7</span><br><span class="line">    (5)vagrant status</span><br><span class="line">    	查看当前vagrant创建的虚拟机</span><br><span class="line">    (6)Vagrantfile中也可以写脚本命令，使得centos7更加丰富</span><br><span class="line">    	但是要注意，修改了Vagrantfile，要想使正常运行的centos7生效，必须使用vagrant reload</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>至此，使用vagrant+virtualbox搭建centos7完成，后面可以修改Vagrantfile对虚拟机进行相应配置</code></p>
+</blockquote>
+<h4 id="1-5-1-4-若想通过Xshell连接centos7"><a href="#1-5-1-4-若想通过Xshell连接centos7" class="headerlink" title="1.5.1.4 若想通过Xshell连接centos7"></a>1.5.1.4 若想通过Xshell连接centos7</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">01 使用centos7的默认账号连接</span><br><span class="line">	在centos文件夹下执行vagrant ssh-config</span><br><span class="line">	关注:Hostname  Port  IdentityFile</span><br><span class="line">	IP:127.0.0.1</span><br><span class="line">	port:2222</span><br><span class="line">	用户名:vagrant</span><br><span class="line">	密码:vagrant</span><br><span class="line">	文件:Identityfile指向的文件private-key</span><br><span class="line">	</span><br><span class="line">02 使用root账户登录</span><br><span class="line">	vagrant ssh   进入到虚拟机中</span><br><span class="line">	sudo -i</span><br><span class="line">	vi /etc/ssh/sshd_config</span><br><span class="line">	修改PasswordAuthentication yes</span><br><span class="line">	passwd修改密码，比如abc123</span><br><span class="line">	systemctl restart sshd</span><br><span class="line">	使用账号root，密码abc123进行登录</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-5-1-5-Vagrantfile通用写法"><a href="#1-5-1-5-Vagrantfile通用写法" class="headerlink" title="1.5.1.5 Vagrantfile通用写法"></a>1.5.1.5 Vagrantfile通用写法</h4><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- mode: ruby -*-</span></span><br><span class="line"><span class="comment"># vi: set ft=ruby :</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># All Vagrant configuration is done below. The &quot;2&quot; in Vagrant.configure</span></span><br><span class="line"><span class="comment"># configures the configuration version (we support older styles for</span></span><br><span class="line"><span class="comment"># backwards compatibility). Please don&#x27;t change it unless you know what</span></span><br><span class="line"><span class="comment"># you&#x27;re doing.</span></span><br><span class="line">Vagrant.configure(<span class="string">&quot;2&quot;</span>) <span class="keyword">do</span> |<span class="params">config</span>|</span><br><span class="line">  <span class="comment"># The most common configuration options are documented and commented below.</span></span><br><span class="line">  <span class="comment"># For a complete reference, please see the online documentation at</span></span><br><span class="line">  <span class="comment"># https://docs.vagrantup.com.</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Every Vagrant development environment requires a box. You can search for</span></span><br><span class="line">  <span class="comment"># boxes at https://vagrantcloud.com/search.</span></span><br><span class="line">  config.vm.box = <span class="string">&quot;centos/7&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Disable automatic box update checking. If you disable this, then</span></span><br><span class="line">  <span class="comment"># boxes will only be checked for updates when the user runs</span></span><br><span class="line">  <span class="comment"># `vagrant box outdated`. This is not recommended.</span></span><br><span class="line">  <span class="comment"># config.vm.box_check_update = false</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Create a forwarded port mapping which allows access to a specific port</span></span><br><span class="line">  <span class="comment"># within the machine from a port on the host machine. In the example below,</span></span><br><span class="line">  <span class="comment"># accessing &quot;localhost:8080&quot; will access port 80 on the guest machine.</span></span><br><span class="line">  <span class="comment"># <span class="doctag">NOTE:</span> This will enable public access to the opened port</span></span><br><span class="line">  <span class="comment"># config.vm.network &quot;forwarded_port&quot;, guest: 80, host: 8080</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Create a forwarded port mapping which allows access to a specific port</span></span><br><span class="line">  <span class="comment"># within the machine from a port on the host machine and only allow access</span></span><br><span class="line">  <span class="comment"># via 127.0.0.1 to disable public access</span></span><br><span class="line">  <span class="comment"># config.vm.network &quot;forwarded_port&quot;, guest: 80, host: 8080, host_ip: &quot;127.0.0.1&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Create a private network, which allows host-only access to the machine</span></span><br><span class="line">  <span class="comment"># using a specific IP.</span></span><br><span class="line">  <span class="comment"># config.vm.network &quot;private_network&quot;, ip: &quot;192.168.33.10&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Create a public network, which generally matched to bridged network.</span></span><br><span class="line">  <span class="comment"># Bridged networks make the machine appear as another physical device on</span></span><br><span class="line">  <span class="comment"># your network.</span></span><br><span class="line">  config.vm.network <span class="string">&quot;public_network&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Share an additional folder to the guest VM. The first argument is</span></span><br><span class="line">  <span class="comment"># the path on the host to the actual folder. The second argument is</span></span><br><span class="line">  <span class="comment"># the path on the guest to mount the folder. And the optional third</span></span><br><span class="line">  <span class="comment"># argument is a set of non-required options.</span></span><br><span class="line">  <span class="comment"># config.vm.synced_folder &quot;../data&quot;, &quot;/vagrant_data&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Provider-specific configuration so you can fine-tune various</span></span><br><span class="line">  <span class="comment"># backing providers for Vagrant. These expose provider-specific options.</span></span><br><span class="line">  <span class="comment"># Example for VirtualBox:</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="comment"># config.vm.provider &quot;virtualbox&quot; do |vb|</span></span><br><span class="line">  <span class="comment">#   # Display the VirtualBox GUI when booting the machine</span></span><br><span class="line">  <span class="comment">#   vb.gui = true</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="comment">#   # Customize the amount of memory on the VM:</span></span><br><span class="line">  <span class="comment">#   vb.memory = &quot;1024&quot;</span></span><br><span class="line">  <span class="comment"># end</span></span><br><span class="line">    config.vm.provider <span class="string">&quot;virtualbox&quot;</span> <span class="keyword">do</span> |<span class="params">vb</span>|</span><br><span class="line">        vb.memory = <span class="string">&quot;4000&quot;</span></span><br><span class="line">        vb.name= <span class="string">&quot;jack-centos7&quot;</span></span><br><span class="line">        vb.cpus= <span class="number">2</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="comment"># View the documentation for the provider you are using for more</span></span><br><span class="line">  <span class="comment"># information on available options.</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Enable provisioning with a shell script. Additional provisioners such as</span></span><br><span class="line">  <span class="comment"># Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the</span></span><br><span class="line">  <span class="comment"># documentation for more information about their specific syntax and use.</span></span><br><span class="line">  <span class="comment"># config.vm.provision &quot;shell&quot;, inline: &lt;&lt;-SHELL</span></span><br><span class="line">  <span class="comment">#   apt-get update</span></span><br><span class="line">  <span class="comment">#   apt-get install -y apache2</span></span><br><span class="line">  <span class="comment"># SHELL</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="1-5-1-6-box的打包分发"><a href="#1-5-1-6-box的打包分发" class="headerlink" title="1.5.1.6 box的打包分发"></a>1.5.1.6 box的打包分发</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">01 退出虚拟机</span><br><span class="line">	vagrant halt</span><br><span class="line"></span><br><span class="line">02 打包</span><br><span class="line">	vagrant package --output first-docker-centos7.box</span><br><span class="line">	</span><br><span class="line">03 得到first-docker-centos7.box</span><br><span class="line">	</span><br><span class="line">04 将first-docker-centos7.box添加到其他的vagrant环境中</span><br><span class="line">	vagrant box add first-docker-centos7 first-docker-centos7.box</span><br><span class="line">	</span><br><span class="line">05 得到Vagrantfile</span><br><span class="line">	vagrant init first-docker-centos7</span><br><span class="line"></span><br><span class="line">06 根据Vagrantfile启动虚拟机</span><br><span class="line">	vagrant up [此时可以得到和之前一模一样的环境，但是网络要重新配置]</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-5-2-安装docker"><a href="#1-5-2-安装docker" class="headerlink" title="1.5.2 安装docker"></a>1.5.2 安装docker</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://docs.docker.com/install/linux/docker-ce/centos/">https://docs.docker.com/install/linux/docker-ce/centos/</a></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">01 进入centos7</span><br><span class="line">	vagrant ssh</span><br><span class="line">	</span><br><span class="line">02 卸载之前的docker</span><br><span class="line">	sudo yum remove docker \</span><br><span class="line">                  docker-client \</span><br><span class="line">                  docker-client-latest \</span><br><span class="line">                  docker-common \</span><br><span class="line">                  docker-latest \</span><br><span class="line">                  docker-latest-logrotate \</span><br><span class="line">                  docker-logrotate \</span><br><span class="line">                  docker-engine</span><br><span class="line">                  </span><br><span class="line">03 安装必要的依赖</span><br><span class="line">	sudo yum install -y yum-utils \</span><br><span class="line">    device-mapper-persistent-data \</span><br><span class="line">    lvm2</span><br><span class="line">    </span><br><span class="line">04 设置docker仓库  [设置阿里云镜像仓库可以先自行百度，后面课程也会有自己的docker hub讲解]	</span><br><span class="line">	sudo yum-config-manager \</span><br><span class="line">      --add-repo \</span><br><span class="line">      https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line">      </span><br><span class="line">    [访问这个地址，使用自己的阿里云账号登录，查看菜单栏左下角，发现有一个镜像加速器:https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors]</span><br><span class="line"></span><br><span class="line">05 安装docker</span><br><span class="line">	sudo yum install -y docker-ce docker-ce-cli containerd.io</span><br><span class="line">	</span><br><span class="line">06 启动docker</span><br><span class="line">	sudo systemctl start docker</span><br><span class="line">	</span><br><span class="line">07 测试docker安装是否成功</span><br><span class="line">	sudo docker run hello-world</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-5-3-docker基本体验"><a href="#1-5-3-docker基本体验" class="headerlink" title="1.5.3 docker基本体验"></a>1.5.3 docker基本体验</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">01 创建tomcat容器</span><br><span class="line">	docker pull tomcat</span><br><span class="line">	docker run -d --name my-tomcat -p 9090:8080 tomcat</span><br><span class="line"></span><br><span class="line">02 创建mysql容器</span><br><span class="line">	docker run -d --name my-mysql -p 3301:3306 -e MYSQL_ROOT_PASSWORD=jack123 --privileged mysql</span><br><span class="line">	</span><br><span class="line">03 进入到容器里面</span><br><span class="line">	docker exec -it containerid /bin/bash</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-5-4-可能有的疑惑"><a href="#1-5-4-可能有的疑惑" class="headerlink" title="1.5.4 可能有的疑惑"></a>1.5.4 可能有的疑惑</h3><p>(1)docker pull在哪拉取的镜像？</p>
+<p>​    默认是在hub.docker.com</p>
+<p>(2)docker pull tomcat拉取的版本是？</p>
+<p>​    默认是最新的版本，可以在后面指定版本”:”</p>
+<p>(3)简单先说一下命令咯</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker pull        拉取镜像到本地</span><br><span class="line">docker run         根据某个镜像创建容器</span><br><span class="line">-d                 让容器在后台运行，其实就是一个进程</span><br><span class="line">--name             给容器指定一个名字</span><br><span class="line">-p                 将容器的端口映射到宿主机的端口</span><br><span class="line">docker exec -it    进入到某个容器中并交互式运行</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/08/08/docker/" data-id="clgdf8p3n0002ccu5dfhld1d6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-spring主要功能" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/07/27/spring%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD/" class="article-date">
+  <time datetime="2022-07-27T09:08:53.750Z" itemprop="datePublished">2022-07-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Spring主要功能"><a href="#Spring主要功能" class="headerlink" title="Spring主要功能"></a>Spring主要功能</h1><h2 id="Spring-Ioc"><a href="#Spring-Ioc" class="headerlink" title="Spring Ioc"></a>Spring Ioc</h2><p>工程怎么把对象创建出来，交给用户（工厂模式、原型、单例）</p>
+<h2 id="Spring-Di"><a href="#Spring-Di" class="headerlink" title="Spring Di"></a>Spring Di</h2><p>怎么给对象自动赋值，循环依赖注入（组合复用原则）</p>
+<h2 id="Spring-Mvc"><a href="#Spring-Mvc" class="headerlink" title="Spring Mvc"></a>Spring Mvc</h2><p>用户输入URL怎么和java代码关联，MVC九大组件（委派、策略、解释器）</p>
+<h2 id="Spring-aop"><a href="#Spring-aop" class="headerlink" title="Spring aop"></a>Spring aop</h2><p>面向切面设计、解耦、通知回调（责任链、动态代理）</p>
+<h2 id="Spring-Jdbc-ORM"><a href="#Spring-Jdbc-ORM" class="headerlink" title="Spring Jdbc ORM"></a>Spring Jdbc ORM</h2><p>基于spring jdbc手写orm框架（模板方法模式、建造者模式）</p>
+<h3 id="BeanFactory工厂"><a href="#BeanFactory工厂" class="headerlink" title="BeanFactory工厂"></a>BeanFactory工厂</h3><p>ApplicationContext：持有BeanFactory引用，静态代理，门面模式<br>BeanDefinition元信息，配置：解析配置文件（xml,yml.annotation,properties）<br>Bean实列，反射实例化Object:原生的Bean,代理的Bean<br>BeanWrapper包装器模式：持有的Bean引用，缓存到IOC容器</p>
+<h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><h3 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h3><p>工厂模式分为：简单工厂（spring中Logger，获取日历方法），抽象工厂（数据库连接池）</p>
+<h3 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h3><h4 id="饿汉式"><a href="#饿汉式" class="headerlink" title="饿汉式"></a>饿汉式</h4><p>被调用前加载实例<br>优点：性能高，效率高，没有任何的锁<br>缺点：某些情况下，可能会造成内存浪费</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">hungrySingleton</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">hungrySingleton</span> <span class="variable">lazy</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">hungrySingleton</span>();</span><br><span class="line">    <span class="keyword">private</span>  <span class="title function_">hungrySingleton</span><span class="params">()</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">public</span>  <span class="keyword">static</span> hungrySingleton <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> lazy;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="懒汉式"><a href="#懒汉式" class="headerlink" title="懒汉式"></a>懒汉式</h4><p>被外部类调用时才会创建实例<br>优点：节省内存<br>缺点：线程不安全<br>同步线程：可以在方法上添加synchroized关键字保证线程安全，但是会影响性能</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LazySingleton</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> LazySingleton lazy;</span><br><span class="line">    <span class="keyword">private</span>  <span class="title function_">LazySingleton</span><span class="params">()</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> synchroized <span class="keyword">static</span> LazySingleton <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(lazy == <span class="literal">null</span>)&#123;</span><br><span class="line">            lazy = <span class="keyword">new</span> <span class="title class_">LazySingleton</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> lazy;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>双重检查：可以在方法中添加synchroized关键字，保证线程安全并且提升了性能，但是可读性难度大</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LazyDoubleCheckSingleton</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> LazyDoubleCheckSingleton lazy;</span><br><span class="line">    <span class="keyword">private</span>  <span class="title function_">LazyDoubleCheckSingleton</span><span class="params">()</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> LazyDoubleCheckSingleton <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//检查是否要阻塞</span></span><br><span class="line">        <span class="keyword">if</span>(lazy == <span class="literal">null</span>)&#123;</span><br><span class="line">            synchroized(LazyDoubleCheckSingleton.class)&#123;</span><br><span class="line">                <span class="comment">//检查是否要重新创建实例</span></span><br><span class="line">                <span class="keyword">if</span>(lazy == <span class="literal">null</span>)&#123;</span><br><span class="line">                    lazy = <span class="keyword">new</span> <span class="title class_">LazyDoubleCheckSingleton</span>();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> lazy;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>内部加载类写法优雅，利用java本身语法特点，性能高，避免内存浪费，但是能够被反射破坏</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LazyStaticInnerClassSingleton</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> LazyStaticInnerClassSingleton lazy;</span><br><span class="line">    <span class="keyword">private</span>  <span class="title function_">LazyStaticInnerClassSingleton</span><span class="params">()</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">public</span>  <span class="keyword">static</span> LazyStaticInnerClassSingleton <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> LazyHolder.INSTANCE;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">LazyHolder</span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">LazyStaticInnerClassSingleton</span> <span class="variable">INSTANCE</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">LazyStaticInnerClassSingleton</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/07/27/spring%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD/" data-id="clgdf8p3q0004ccu5b36h5yd3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-aop切面知识点" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/07/21/aop%E5%88%87%E9%9D%A2%E7%9F%A5%E8%AF%86%E7%82%B9/" class="article-date">
+  <time datetime="2022-07-21T05:50:36.665Z" itemprop="datePublished">2022-07-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="title-aop切面知识点"><a href="#title-aop切面知识点" class="headerlink" title=" title aop切面知识点"></a> title aop切面知识点</h2><h1 id="什么是aop"><a href="#什么是aop" class="headerlink" title="什么是aop?"></a>什么是aop?</h1><p>AOP在spring中又叫“面向切面编程”，它可以说是对传统我们面向对象编程的一个补充，从字面上顾名思义就可以知道，它的主要操作对象就是“切面”，所以我们就可以简单的理解它是贯穿于方法之中，在方法执行前、执行时、执行后、返回值后、异常后要执行的操作。相当于是将我们原本一条线执行的程序在中间切开加入了一些其他操作一样。<br>在应用AOP编程时，仍然需要定义公共功能，但可以明确的定义这个功能应用在哪里，以什么方式应用，并且不必修改受影响的类。这样一来横切关注点就被模块化到特殊的类里——这样的类我们通常就称之为“切面”。</p>
+<h1 id="基于AspectJ注解的AOP开发"><a href="#基于AspectJ注解的AOP开发" class="headerlink" title="基于AspectJ注解的AOP开发"></a>基于AspectJ注解的AOP开发</h1><ol>
+<li><p>五种通知注解</p>
+<ul>
+<li>@Before：前置通知，在方法执行之前执行</li>
+<li>@After：后置通知，在方法执行之后执行</li>
+<li>@AfterRunning：返回通知，在方法返回结果之后执行</li>
+<li>@AfterThrowing：异常通知，在方法抛出异常之后执行</li>
+<li>@Around：环绕通知，围绕着方法执行</li>
+</ul>
+</li>
+<li><p>切入点表达式规范<br>这五种通知注解后面还可以跟特定的参数，来指定哪一个切面方法在哪一个方法执行时触发。那么具体操作是怎么样的呢？<br>这里就需要和大家介绍一个名词：“切入点表达式”，通过在注解中加入该表达式参数，我们就可以通过表达式的方式定位一个或多个具体的连接点，<br>切入点表达式的语法格式规范是：<br>execution([权限修饰符] [返回值类型] [简单类名/全类名] [方法名] ([参数列表]))<br>其中在表达式中有两个常用的特殊符号：<br>星号“ * ”代表所有的意思，星号还可以表示任意的数值类型<br>“.”号:“…”表示任意类型，或任意路径下的文件，</p>
+</li>
+<li><p>注解实践</p>
+<h3 id="通知注解的执行顺序"><a href="#通知注解的执行顺序" class="headerlink" title="通知注解的执行顺序"></a>通知注解的执行顺序</h3><p>在正常情况下执行：</p>
+</li>
+</ol>
+<p>@Before(前置通知)—&gt;@After(后置通知)—-&gt;@AfterReturning(返回通知)</p>
+<p>在异常情况下执行：</p>
+<p>@Before(前置通知)—&gt;@After(后置通知)—-&gt;@AfterThrowing(异常通知)</p>
+<p>当普通通知和环绕通知同时执行时：</p>
+<p>执行顺序是：</p>
+<p>环绕前置—-普通前置—-普通后置—-普通返回/异常—-环绕后置</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.demotest.apsect;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.JoinPoint;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.ProceedingJoinPoint;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.*;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Description;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 切面执行流程</span></span><br><span class="line"><span class="comment"> * Around前置环绕 ===&gt; Before ===&gt;doAfterReturning ===&gt; doAfter ===&gt; Around后置环绕</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">aspect2</span> &#123;</span><br><span class="line">    <span class="meta">@Pointcut(&quot;execution(public * com.example.demotest.controller..*.*(..))&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">exec</span><span class="params">()</span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Before(&quot;exec()&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">doBefore</span><span class="params">(JoinPoint joinPoint)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;===执行doBefore&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@After(&quot;exec()&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doAfter</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;===执行doAfter&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Around(&quot;exec()&quot; )</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">aroundExecution</span><span class="params">(ProceedingJoinPoint point)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> Thread.currentThread().getName();</span><br><span class="line">        Class&lt;?&gt; clazz = point.getSignature().getDeclaringType();</span><br><span class="line">        System.out.println(<span class="string">&quot;===执行Around前111111&quot;</span>);</span><br><span class="line">        <span class="type">Description</span> <span class="variable">desc</span> <span class="operator">=</span> clazz.getAnnotation(Description.class);</span><br><span class="line">        <span class="keyword">if</span>(desc != <span class="literal">null</span>)&#123;</span><br><span class="line">            System.out.println(name + desc.value() + clazz.getName());</span><br><span class="line">        &#125;</span><br><span class="line">        Object[] args = point.getArgs();</span><br><span class="line">        <span class="keyword">for</span> (Object arg : args)&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;===执行Around前&quot;</span>+arg.toString());</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;===执行Around前222222&quot;</span>);</span><br><span class="line">        <span class="type">Object</span> <span class="variable">proceed</span> <span class="operator">=</span> point.proceed(args);</span><br><span class="line">        System.out.println(<span class="string">&quot;===执行Around&quot;</span>+proceed);</span><br><span class="line">        <span class="keyword">return</span>  proceed;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AfterReturning(returning = &quot;result&quot;,pointcut = &quot;exec()&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doAfterReturning</span><span class="params">(Object result)</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;===执行doAfterReturning&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@AfterThrowing(throwing = &quot;result&quot;,pointcut = &quot;exec()&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doAfterThrowing</span><span class="params">(Throwable result)</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;===执行doAfterThrowing&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/07/21/aop%E5%88%87%E9%9D%A2%E7%9F%A5%E8%AF%86%E7%82%B9/" data-id="clgdf8p3g0001ccu5eodedohs" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-vue学习" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2022/07/14/vue%E5%AD%A6%E4%B9%A0/" class="article-date">
@@ -157,6 +427,25 @@
 </li>
 </ol>
 <p>&lt;^注意：vue.set()和vm.$set()不能给vm或者vm的跟数据对象添加属性&gt;</p>
+<h1 id="收集表单数据"><a href="#收集表单数据" class="headerlink" title="收集表单数据"></a>收集表单数据</h1><ul>
+<li>若<input type="text"/>,则v-model收集的是value值，用户输入的内容就是value值</li>
+<li>若<input type="radio"/>,则v-model收集的是value值，且要给标签配置value属性</li>
+<li>若<input type="checkbox"/><ul>
+<li>没有配置value属性，那么收集的是checked属性（勾选or未勾选，是布尔值）</li>
+<li>配置了value属性<ul>
+<li>v-model的初始值是非数组，那么收集的就是checked（勾选or未勾选，是布尔值）</li>
+<li>v-model的初始值是数组，那么收集的就是value组成的数组</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>v-model的三个修饰符<ul>
+<li>lazy 失去焦点后在收集数据</li>
+<li>number 输入字符串转为有效的数字</li>
+<li>trim 输入首尾空格过滤</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
@@ -375,7 +664,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li></ul>
     </div>
   </div>
 
@@ -388,15 +677,23 @@
       <ul>
         
           <li>
-            <a href="/2022/07/14/vue%E5%AD%A6%E4%B9%A0/">vue学习</a>
+            <a href="/2023/04/12/JMM/">(no title)</a>
           </li>
         
           <li>
-            <a href="/2022/07/12/makedown%E8%AF%AD%E6%B3%95%E7%AE%80%E4%BB%8B/">makedown语法简介</a>
+            <a href="/2023/04/12/mysql%E7%B4%A2%E5%BC%95/">(no title)</a>
           </li>
         
           <li>
-            <a href="/2022/07/12/hello-world/">Hello World</a>
+            <a href="/2022/08/08/docker/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/27/spring%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/21/aop%E5%88%87%E9%9D%A2%E7%9F%A5%E8%AF%86%E7%82%B9/">(no title)</a>
           </li>
         
       </ul>
@@ -411,7 +708,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2022 John Doe<br>
+      &copy; 2023 John Doe<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

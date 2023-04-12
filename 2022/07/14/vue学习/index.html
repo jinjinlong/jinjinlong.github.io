@@ -15,7 +15,7 @@
 <meta property="og:description" content="computed和watch的区别 computed是计算属性，watch是监控属性 computed能完成的功能watch都能完成 watchn能完成的功能，computed不一定能完成，例如：watch可以进行异步操作1234567watch:&amp;#123;        firstName(val)&amp;#123;            setTimeout(() &#x3D;&gt; &amp;#123;">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-07-14T06:57:48.689Z">
-<meta property="article:modified_time" content="2022-07-18T03:04:56.064Z">
+<meta property="article:modified_time" content="2022-07-18T06:33:46.847Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -159,6 +159,25 @@
 </li>
 </ol>
 <p>&lt;^注意：vue.set()和vm.$set()不能给vm或者vm的跟数据对象添加属性&gt;</p>
+<h1 id="收集表单数据"><a href="#收集表单数据" class="headerlink" title="收集表单数据"></a>收集表单数据</h1><ul>
+<li>若<input type="text"/>,则v-model收集的是value值，用户输入的内容就是value值</li>
+<li>若<input type="radio"/>,则v-model收集的是value值，且要给标签配置value属性</li>
+<li>若<input type="checkbox"/><ul>
+<li>没有配置value属性，那么收集的是checked属性（勾选or未勾选，是布尔值）</li>
+<li>配置了value属性<ul>
+<li>v-model的初始值是非数组，那么收集的就是checked（勾选or未勾选，是布尔值）</li>
+<li>v-model的初始值是数组，那么收集的就是value组成的数组</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>v-model的三个修饰符<ul>
+<li>lazy 失去焦点后在收集数据</li>
+<li>number 输入字符串转为有效的数字</li>
+<li>trim 输入首尾空格过滤</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
@@ -171,6 +190,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2022/07/21/aop%E5%88%87%E9%9D%A2%E7%9F%A5%E8%AF%86%E7%82%B9/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
   
   
     <a href="/2022/07/12/makedown%E8%AF%AD%E6%B3%95%E7%AE%80%E4%BB%8B/" id="article-nav-older" class="article-nav-link-wrap">
@@ -199,7 +227,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/">August 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li></ul>
     </div>
   </div>
 
@@ -212,15 +240,23 @@
       <ul>
         
           <li>
-            <a href="/2022/07/14/vue%E5%AD%A6%E4%B9%A0/">vue学习</a>
+            <a href="/2023/04/12/JMM/">(no title)</a>
           </li>
         
           <li>
-            <a href="/2022/07/12/makedown%E8%AF%AD%E6%B3%95%E7%AE%80%E4%BB%8B/">makedown语法简介</a>
+            <a href="/2023/04/12/mysql%E7%B4%A2%E5%BC%95/">(no title)</a>
           </li>
         
           <li>
-            <a href="/2022/07/12/hello-world/">Hello World</a>
+            <a href="/2022/08/08/docker/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/27/spring%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/21/aop%E5%88%87%E9%9D%A2%E7%9F%A5%E8%AF%86%E7%82%B9/">(no title)</a>
           </li>
         
       </ul>
@@ -235,7 +271,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2022 John Doe<br>
+      &copy; 2023 John Doe<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

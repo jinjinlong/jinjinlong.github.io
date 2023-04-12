@@ -5,17 +5,17 @@
   
 
   
-  <title>Hello World | Hexo</title>
+  <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="title:JMMJMM数据原子操作 read(读取):从主内存读取数据 load(载入):从主内存读取到数据写入到工作内存 use(使用):从工作内存读取数据来计算 assign(赋值):将计算好的值重新赋值到工作内从中 store(存储):将工作内存数据写入主内存 write(写入):将store过去的变量值赋值给主内存中的变量 lock(锁定):将主内存数据加锁，标识为线程独占状态 unl">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://example.com/2022/07/12/hello-world/index.html">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2023/04/12/JMM/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="title:JMMJMM数据原子操作 read(读取):从主内存读取数据 load(载入):从主内存读取到数据写入到工作内存 use(使用):从工作内存读取数据来计算 assign(赋值):将计算好的值重新赋值到工作内从中 store(存储):将工作内存数据写入主内存 write(写入):将store过去的变量值赋值给主内存中的变量 lock(锁定):将主内存数据加锁，标识为线程独占状态 unl">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-07-12T06:47:17.172Z">
-<meta property="article:modified_time" content="2022-07-12T06:27:45.343Z">
+<meta property="article:published_time" content="2023-04-12T06:19:07.611Z">
+<meta property="article:modified_time" content="2023-04-12T08:18:59.297Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -66,46 +66,44 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-JMM" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2022/07/12/hello-world/" class="article-date">
-  <time datetime="2022-07-12T06:47:17.172Z" itemprop="datePublished">2022-07-12</time>
+    <a href="/2023/04/12/JMM/" class="article-date">
+  <time datetime="2023-04-12T06:19:07.611Z" itemprop="datePublished">2023-04-12</time>
 </a>
     
   </div>
   <div class="article-inner">
     
     
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Hello World
-    </h1>
-  
-
-      </header>
-    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+        <hr>
+<h2 id="title-JMM"><a href="#title-JMM" class="headerlink" title="title:JMM"></a>title:JMM</h2><h1 id="JMM数据原子操作"><a href="#JMM数据原子操作" class="headerlink" title="JMM数据原子操作"></a>JMM数据原子操作</h1><ul>
+<li>read(读取):从主内存读取数据</li>
+<li>load(载入):从主内存读取到数据写入到工作内存</li>
+<li>use(使用):从工作内存读取数据来计算</li>
+<li>assign(赋值):将计算好的值重新赋值到工作内从中</li>
+<li>store(存储):将工作内存数据写入主内存</li>
+<li>write(写入):将store过去的变量值赋值给主内存中的变量</li>
+<li>lock(锁定):将主内存数据加锁，标识为线程独占状态</li>
+<li>unlock(解锁):将主内存数据解锁，解锁后其他线程可以锁定该变量</li>
+</ul>
+<h1 id="JMM缓存不一致问题"><a href="#JMM缓存不一致问题" class="headerlink" title="JMM缓存不一致问题"></a>JMM缓存不一致问题</h1><ul>
+<li>缓存一致性协议(MESI):多个cpu从主内存读取同一个数据到高速缓存，当其中某个cpu修改了缓存里的数据，该数据<strong>马上同步回主内存</strong>，其他cpu通过<strong>总线嗅探机制</strong>可以感知到数据的变化从而将自己缓存里的数据失效</li>
+<li>缓存加锁：缓存锁的核心机制是基于缓存一致性协议来实现的，一个处理器的缓存回写到内存会导致其他处理器的缓存无效，IA-32和intel 64处理器使用MESI实现缓存一致性协议</li>
+</ul>
+<h1 id="Volatile缓存可见性实现原理"><a href="#Volatile缓存可见性实现原理" class="headerlink" title="Volatile缓存可见性实现原理"></a>Volatile缓存可见性实现原理</h1><p>底层实现主要通过汇编lock前缀指令，他会锁定这块内存区域的缓存(缓存行锁定)并写回到主内存<br>IA-32和intel 64架构软件开发者手册对lock指令的解释：</p>
+<ol>
+<li>会将当前处理器缓存行的数据<strong>立即</strong>写回到系统内存</li>
+<li>这个写回内存的操作会引起其他cpu里缓存了该内存地址的数据无效(MESI协议)</li>
+<li>提供内存屏障功能，使lock前后指令不能重排序</li>
+</ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/07/12/hello-world/" data-id="cl5htes1e0000m8u5cy1jfrgk" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2023/04/12/JMM/" data-id="clgdf8p370000ccu5cadh46yv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -114,15 +112,11 @@
     
 <nav id="article-nav">
   
-    <a href="/2022/07/12/makedown%E8%AF%AD%E6%B3%95%E7%AE%80%E4%BB%8B/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          makedown语法简介
-        
-      </div>
-    </a>
   
+    <a href="/2023/04/12/mysql%E7%B4%A2%E5%BC%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
   
 </nav>
 
